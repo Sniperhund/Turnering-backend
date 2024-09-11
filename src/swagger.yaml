@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Turnering Backend
+  description: |
+    This is the docs for the backend
+    I have already added a single team as sample data :)
+    
+    If you have any questions or data that needs to be added, please contact me (Lucas)
+  version: 0.1.9
+
+paths:
+  /tennis/teams:
+    get:
+      summary: Get all teams
+      description: |
+        This endpoint returns all teams in the database
+      responses:
+        '200':
+          description: A list of all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TennisTeam'
+  /tennis/team:
+    post:
+      summary: Add a team
+      description: |
+        This endpoint adds a team to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TennisTeam'
+      responses:
+        '200':
+          description: The team was added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TennisTeam'
+  /tennis/win:
+    get:
+      summary: Increment the win count
+      description: |
+        This endpoint increments the win count of a team
+
+        You can also decrement the win count by sending a negative number
+      parameters:
+        - name: id
+          in: query
+          description: The id of the team
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: The amount of wins to increment
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The win count was incremented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TennisTeam'
+  /tennis/loss:
+    get:
+      summary: Increment the loss count
+      description: |
+        This endpoint increments the loss count of a team
+        
+        You can also decrement the loss count by sending a negative number
+      parameters:
+        - name: id
+          in: query
+          description: The id of the team
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: The amount of losses to increment
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The loss count was incremented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TennisTeam'
+
+components:
+  schemas:
+    TennisTeam:
+      type: object
+      properties:
+        name:
+          type: string
+        member:
+          type: string
+        won:
+          type: number
+        lost:
+          type: number

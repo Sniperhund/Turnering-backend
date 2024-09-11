@@ -4,8 +4,11 @@ await mongoose.connect(
     "mongodb://root:7ytSAoKiQyF76gueEbPHqL3ezBu1d70UTlG16ydEiMDeU4UhLy1TTPeCfUtvYnHF@213.199.41.61:5432/?directConnection=true"
 )
 
-const testSchema = new mongoose.Schema({
+const tennisTeamSchema = new mongoose.Schema({
     name: String,
+    member: String,
+    won: Number,
+    lost: Number,
 })
 
-export const Test = mongoose.model("Test", testSchema)
+export const TennisTeam = mongoose.model("TennisTeam", tennisTeamSchema)
