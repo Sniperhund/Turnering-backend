@@ -16,6 +16,10 @@ const app = express()
 const port = 3000
 
 app.use(cors())
+
+const file = fs.readFileSync("./src/swagger.yaml", "utf8")
+const swaggerDocument = YAML.parse(file)
+
 app.use(
     "/docs",
     function (req, res, next) {
@@ -31,9 +35,6 @@ app.get("/tennis/teams", getAllTennisTeams)
 app.post("/tennis/team", addTennisTeam)
 app.get("/tennis/win", increaseWins)
 app.get("/tennis/loss", increaseLosses)
-
-const file = fs.readFileSync("./src/swagger.yaml", "utf8")
-const swaggerDocument = YAML.parse(file)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
