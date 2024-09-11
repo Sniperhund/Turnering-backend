@@ -23,6 +23,7 @@ app.get("/tennis/loss", increaseLosses)
 const file = fs.readFileSync("./src/swagger.yaml", "utf8")
 const swaggerDocument = YAML.parse(file)
 
+app.use(cors())
 app.use(
     "/docs",
     function (req, res, next) {
