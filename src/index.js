@@ -2,6 +2,7 @@ import express from "express"
 import fs from "fs"
 import YAML from "yaml"
 import swaggerUi from "swagger-ui-express"
+import cors from "cors"
 import {
     index,
     getAllTennisTeams,
