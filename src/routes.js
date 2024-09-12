@@ -1,6 +1,12 @@
 import { TennisTeam } from "./database.js"
 
 export const index = (req, res) => {
+    console.log("index")
+    res.send("ok")
+}
+
+export const reset = async (req, res) => {
+    await TennisTeam.deleteMany()
     res.send("ok")
 }
 
@@ -10,6 +16,10 @@ export const getAllTennisTeams = async (req, res) => {
 }
 
 export const addTennisTeam = async (req, res) => {
+    if (!req.body.name || !req.body.member) {
+        return res.status(400).send("Missing name or member")
+    }
+
     const team = new TennisTeam({
         name: req.body.name,
         member: req.body.member,
