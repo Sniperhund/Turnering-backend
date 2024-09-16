@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Add Tennis Team</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <form
+            id="form"
+            class="flex flex-col space-y-2 max-w-2xl mx-auto h-screen justify-center"
+        >
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="border-solid border-2 border-red-500 rounded-lg"
+            />
+
+            <label for="member">Member</label>
+            <input
+                type="text"
+                id="member"
+                name="member"
+                required
+                class="border-solid border-2 border-red-500 rounded-lg"
+            />
+
+            <input
+                type="submit"
+                value="Submit"
+                class="!mt-32 border-solid border-2 border-red-500 rounded-lg p-4"
+            />
+        </form>
+
+        <button
+            id="clear"
+            style="position: absolute; left: 10px; bottom: 10px"
+            class="border-solid border-2 border-red-500 rounded-lg p-4"
+        >
+            Clear all teams (DO NOT TOUCH IF YOU DON'T KNOW WHAT YOU'RE DOING)
+        </button>
+
+        <script>
+            function submit(event) {
+                event.preventDefault()
+
+                const name = document.getElementById("name").value
+                const member = document.getElementById("member").value
+
+                const url = window.location.origin
+                fetch(`${url}/tennis/team`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name, member }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Success:", data)
+                        alert("Team added successfully")
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error)
+                        alert("Error adding team")
+                    })
+            }
+
+            function clear() {
+                const url = window.location.origin
+                fetch(`${url}/reset`)
+
+                alert("Done clearing all teams")
+            }
+
+            document.querySelector("#form").addEventListener("submit", submit)
+            document.querySelector("#clear").addEventListener("click", clear)
+        </script>
+    </body>
+</html>

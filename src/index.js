@@ -3,6 +3,7 @@ import fs from "fs"
 import YAML from "yaml"
 import swaggerUi from "swagger-ui-express"
 import cors from "cors"
+import path from "path"
 import {
     index,
     getAllTennisTeams,
@@ -38,6 +39,15 @@ app.get("/tennis/teams", getAllTennisTeams)
 app.post("/tennis/team", addTennisTeam)
 app.get("/tennis/win", increaseWins)
 app.get("/tennis/loss", increaseLosses)
+
+app.get("/tennis/add", function (req, res) {
+    res.sendFile(
+        path.join(
+            path.dirname(new URL(import.meta.url).pathname),
+            "/addTennis.html"
+        )
+    )
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
